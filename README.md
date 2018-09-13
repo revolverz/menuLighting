@@ -1,12 +1,10 @@
 # menuLighting
 
-
 When you start scrolling the page, the top menu goes smoothly behind you and depending on what you are currently viewing, the corresponding menu item will be highlighted 
-
 
 ### Installation
 
-
+Connection of the plugin-menu.js script (the file can be renamed) via the script tag and the src attribute in the html file
 
 ### Usage
 
