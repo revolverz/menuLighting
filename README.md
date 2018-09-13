@@ -39,6 +39,8 @@ var settings = $.extend({
 
 ### Example
 
+HTML
+
 ```HTML
 
  <div class="main-menu">
@@ -50,6 +52,8 @@ var settings = $.extend({
             </ul>
         </div>
 ```
+
+JS
 
 ```js
 
