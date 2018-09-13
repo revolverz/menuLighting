@@ -10,6 +10,7 @@ When you start scrolling the page, the top menu goes smoothly behind you and dep
 
 ### Usage
 
+```js
 // Initialize plugin with default options.
 
 $('#test').menuLighting();
@@ -21,10 +22,11 @@ $('#test').menuLighting({
     	color_default: "",
         time: 500
    });
-
+```
 
 ### Setup options
 
+```js
 // Default plugin options.
 
 var settings = $.extend({
@@ -32,4 +34,4 @@ var settings = $.extend({
         color_active: "",
         time: 500
   }, options);
-
+```
