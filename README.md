@@ -8,6 +8,9 @@ Connection of the plugin-menu.js script (the file can be renamed) via the script
 
 ### Usage
 
+
+This identifier or class must match the value of the href attribute of the menu link that logically refers to this section.
+
 ```js
 // Initialize plugin with default options.
 
