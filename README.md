@@ -3,7 +3,7 @@
 
 When you start scrolling the page, the top menu goes smoothly behind you and depending on what you are currently viewing, the corresponding menu item will be highlighted 
 
-Usage
+# Usage
 
 // Initialize plugin with default options.
 $('#test').menuLighting();
@@ -17,7 +17,7 @@ $('#test').menuLighting({
    });
 
 
-Setup options
+# Setup options
 
 // Default plugin options.
 var settings = $.extend({
