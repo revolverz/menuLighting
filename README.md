@@ -19,9 +19,9 @@ $('#test').menuLighting();
 // Initialize plugin with user defined options.
 
 $('#test').menuLighting({
-    	color_active: "green",
-    	color_default: "",
-        time: 500
+    	color_active: "green", // indicate "active" color
+    	color_default: "", // indicate "inactive" color
+        time: 500 // time of transition to the selected block after a click on the menu link
    });
 ```
 
