@@ -36,3 +36,27 @@ var settings = $.extend({
         time: 500
   }, options);
 ```
+
+### Example
+
+```HTML
+
+ <div class="main-menu">
+            <ul id = "test" class="main-menu__list j-main-menu__list">
+                <li class="main-menu__item"><a class="main-menu__link" href="#main">Main</a></li>
+                <li class="main-menu__item"><a class="main-menu__link" href="#services">Services/a></li>
+                <li class="main-menu__item"><a class="main-menu__link" href="#equipment">Equipment</a></li>
+                <li class="main-menu__item"><a class="main-menu__link" href="#contacts">Contacts</a></li>
+            </ul>
+        </div>
+```
+
+```js
+
+   $('#test').menuLighting({
+    	color_active: "orange",
+    	color_default: "",
+        time: 1000
+    });
+
+```
