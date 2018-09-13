@@ -3,9 +3,15 @@
 
 When you start scrolling the page, the top menu goes smoothly behind you and depending on what you are currently viewing, the corresponding menu item will be highlighted 
 
-# Usage
+
+### Installation
+
+
+
+### Usage
 
 // Initialize plugin with default options.
+
 $('#test').menuLighting();
 
 // Initialize plugin with user defined options.
@@ -17,9 +23,10 @@ $('#test').menuLighting({
    });
 
 
-# Setup options
+### Setup options
 
 // Default plugin options.
+
 var settings = $.extend({
         color_default: "",
         color_active: "",
