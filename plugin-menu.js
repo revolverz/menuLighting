@@ -11,70 +11,115 @@
 
 $(document).ready(function() {
 
+
     (function($) {
 
-        $.fn.menuLighting = function(options) {
+        var methods = {
 
-            // Assigning a variable to a selector name
+            init: function(options) {
+                var menu_selector = "." + $(this).attr('class').split(' ')[0];
 
-            var menu_selector = "." + $(this).attr('class').split(' ')[0];
+                // Plugin default settings
+                var settings = $.extend({
+                    color_default: "",
+                    color_active: "",
+                    time: 500
+                }, options);
 
-            // Plugin default settings
+                //Function of highlighting menu items when scrolling a page   
+                function onScroll() {
+                    var scroll_top = $(document).scrollTop();
 
-            var settings = $.extend({
-                color_default: "",
-                color_active: "",
-                time: 500
-            }, options);
+                    $(menu_selector + " a").each(function() {
 
-            //Function of highlighting menu items when scrolling a page
+                        var hash = $(this).attr("href");
+                        var target = $(hash);
+                        if (target.position().top <= scroll_top && target.position().top + target.outerHeight() > scroll_top) {
+                            $(menu_selector + " a").css({
+                                color: settings.color_default
+                            });
+                            $(this).css({
+                                color: settings.color_active
+                            });
+                        } else {
+                            $(this).css({
+                                color: settings.color_default
+                            });
+                        }
+                    });
+                }
 
+                /* Scroll function to the corresponding block with a slice
+                 on the menu item when scrolling the page */
 
-            function onScroll() {
-                var scroll_top = $(document).scrollTop();
-
-                $(menu_selector + " a").each(function() {
-
+                $(document).on("scroll", onScroll);
+                $(menu_selector + " a[href*='#']").click(function(e) {
+                    e.preventDefault();
+                    $(document).off("scroll");
+                    $(menu_selector + " a").css({
+                        color: settings.color_default
+                    });
+                    $(this).css({
+                        color: settings.color_active
+                    });
                     var hash = $(this).attr("href");
                     var target = $(hash);
-                    if (target.position().top <= scroll_top && target.position().top + target.outerHeight() > scroll_top) {
-                        $(menu_selector + " a").css({
-                            color: settings.color_default
-                        });
-                        $(this).css({
-                            color: settings.color_active
-                        });
-                    } else {
-                        $(this).css({
-                            color: settings.color_default
-                        });
-                    }
+                    $("html, body").animate({
+                        scrollTop: target.offset().top
+                    }, settings.time, function() {
+                        window.location.hash = hash;
+                        $(document).on("scroll", onScroll);
+                    });
                 });
+            },
+
+            show: function(options) {
+
+                 var $menu = $(this);
+        
+                // show default settings
+
+                var showSettings = $.extend({
+                    background_color: "#00A99D",
+                    opacity: "0.9",
+                    width: "80%",
+                    margin_left: "auto",
+                    margin_right: "auto",
+                    border_radius: 0
+                }, options);
+
+                window.onscroll =
+                    function() {
+                        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+                        if (scrolled > 0) {
+                            $($menu).css({
+                                "background-color": showSettings.background_color,
+                                "opacity": showSettings.opacity,
+                                "width": showSettings.width,
+                                "border-radius": showSettings.border_radius,
+                                "margin-right": showSettings.margin_right,
+                                "margin-left": showSettings.margin_left
+                            });
+                            
+                        } else {
+                            $($menu).css({"background-color": "" });
+                        }
+                    };
             }
 
-            /* Scroll function to the corresponding block with a slice
-             on the menu item when scrolling the page */
-
-            $(document).on("scroll", onScroll);
-            $(menu_selector + " a[href*='#']").click(function(e) {
-                e.preventDefault();
-                $(document).off("scroll");
-                $(menu_selector + " a").css({
-                    color: settings.color_default
-                });
-                $(this).css({
-                    color: settings.color_active
-                });
-                var hash = $(this).attr("href");
-                var target = $(hash);
-                $("html, body").animate({
-                    scrollTop: target.offset().top
-                }, settings.scroll_time, function() {
-                    window.location.hash = hash;
-                    $(document).on("scroll", onScroll);
-                });
-            });
-
         };
+
+              $.fn.menuLighting = function(method) {
+
+                // логика вызова метода
+                if (methods[method]) {
+                    return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+                } else if (typeof method === 'object' || !method) {
+                    return methods.init.apply(this, arguments);
+                } else {
+                    $.error('Метод с именем ' + method + ' не существует для jQuery.menuLighting');
+                }
+            };
+
     })(jQuery);
 });
