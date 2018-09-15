@@ -12,29 +12,29 @@
 $(document).ready(function() {
 
 
-    (function($) {
+(function($) {
 
         var methods = {
 
-            reset: function(options) {
+            reset: function(event) {
                 
+                var $menu = this;
                 return $(this).each(function() {
-                    var $menu = $(this);
+                    
                     $($menu).css({
                         "background-color": "black"
                     });
-                    console.log($menu);
                 });
             },
 
-            init: function(options) {
-
+            init: function(event) {
+                
                 return $(this).each(function() {
-                 //   $(window).bind('scroll', methods.reset);
-              
+                $(window).bind('scroll', methods.reset.bind(this));
+                   debugger 
                 });
 
-                var menu_selector = "." + $(this).attr('class').split(' ')[0];
+            /*    var menu_selector = "." + $(this).attr('class').split(' ')[0];
 
                 // Plugin default settings
                 var settings = $.extend({
@@ -69,7 +69,7 @@ $(document).ready(function() {
                 /* Scroll function to the corresponding block with a slice
                  on the menu item when scrolling the page */
 
-                $(document).on("scroll", onScroll);
+              /*  $(document).on("scroll", onScroll);
                 $(menu_selector + " a[href*='#']").click(function(e) {
                     e.preventDefault();
                     $(document).off("scroll");
@@ -88,55 +88,59 @@ $(document).ready(function() {
                         $(document).on("scroll", onScroll);
                     });
                 });
-            },
 
-            show: function(options) {
 
-                var $menu = $(this);
+                 */
+            
+    },
 
-                // show default settings
+    show: function(options) {
 
-                var showSettings = $.extend({
-                    background_color: "#00A99D",
-                    opacity: "0.9",
-                    width: "80%",
-                    margin_left: "auto",
-                    margin_right: "auto",
-                    border_radius: 0
-                }, options);
+        var $menu = $(this);
 
-                window.onscroll =
-                    function() {
-                        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-                        if (scrolled > 0) {
-                            $($menu).css({
-                                "background-color": showSettings.background_color,
-                                "opacity": showSettings.opacity,
-                                "width": showSettings.width,
-                                "border-radius": showSettings.border_radius,
-                                "margin-right": showSettings.margin_right,
-                                "margin-left": showSettings.margin_left
-                            });
+        // show default settings
 
-                        } else {
-                            $($menu).css({ "background-color": "" });
-                        }
-                    };
-            }
+        var showSettings = $.extend({
+            background_color: "#00A99D",
+            opacity: "0.9",
+            width: "80%",
+            margin_left: "auto",
+            margin_right: "auto",
+            border_radius: 0
+        }, options);
 
-        };
+        window.onscroll =
+            function() {
+                var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrolled > 0) {
+                    $($menu).css({
+                        "background-color": showSettings.background_color,
+                        "opacity": showSettings.opacity,
+                        "width": showSettings.width,
+                        "border-radius": showSettings.border_radius,
+                        "margin-right": showSettings.margin_right,
+                        "margin-left": showSettings.margin_left
+                    });
 
-        $.fn.menuLighting = function(method) {
+                } else {
+                    $($menu).css({ "background-color": "" });
+                }
+            };
+    }
 
-            // логика вызова метода
-            if (methods[method]) {
-                return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-            } else if (typeof method === 'object' || !method) {
-                return methods.init.apply(this, arguments);
-            } else {
-                $.error('Метод с именем ' + method + ' не существует для jQuery.menuLighting');
-            }
-        };
+};
 
-    })(jQuery);
+$.fn.menuLighting = function(method) {
+
+    // логика вызова метода
+    if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+    } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+    } else {
+        $.error('Метод с именем ' + method + ' не существует для jQuery.menuLighting');
+    }
+};
+
+})(jQuery);
 });
