@@ -16,7 +16,24 @@ $(document).ready(function() {
 
         var methods = {
 
+            reset: function(options) {
+                
+                return $(this).each(function() {
+                    var $menu = $(this);
+                    $($menu).css({
+                        "background-color": "black"
+                    });
+                    console.log($menu);
+                });
+            },
+
             init: function(options) {
+
+                return $(this).each(function() {
+                 //   $(window).bind('scroll', methods.reset);
+              
+                });
+
                 var menu_selector = "." + $(this).attr('class').split(' ')[0];
 
                 // Plugin default settings
@@ -75,8 +92,8 @@ $(document).ready(function() {
 
             show: function(options) {
 
-                 var $menu = $(this);
-        
+                var $menu = $(this);
+
                 // show default settings
 
                 var showSettings = $.extend({
@@ -100,26 +117,26 @@ $(document).ready(function() {
                                 "margin-right": showSettings.margin_right,
                                 "margin-left": showSettings.margin_left
                             });
-                            
+
                         } else {
-                            $($menu).css({"background-color": "" });
+                            $($menu).css({ "background-color": "" });
                         }
                     };
             }
 
         };
 
-              $.fn.menuLighting = function(method) {
+        $.fn.menuLighting = function(method) {
 
-                // логика вызова метода
-                if (methods[method]) {
-                    return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-                } else if (typeof method === 'object' || !method) {
-                    return methods.init.apply(this, arguments);
-                } else {
-                    $.error('Метод с именем ' + method + ' не существует для jQuery.menuLighting');
-                }
-            };
+            // логика вызова метода
+            if (methods[method]) {
+                return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+            } else if (typeof method === 'object' || !method) {
+                return methods.init.apply(this, arguments);
+            } else {
+                $.error('Метод с именем ' + method + ' не существует для jQuery.menuLighting');
+            }
+        };
 
     })(jQuery);
 });
