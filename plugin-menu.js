@@ -12,29 +12,26 @@
 $(document).ready(function() {
 
 
-(function($) {
+    (function($) {
 
         var methods = {
 
             reset: function(event) {
-                
-                var $menu = this;
-                return $(this).each(function() {
-                    
-                    $($menu).css({
-                        "background-color": "black"
-                    });
-                });
+
+
             },
 
-            init: function(event) {
-                
-                return $(this).each(function() {
-                $(window).bind('scroll', methods.reset.bind(this));
-                   debugger 
-                });
+            destroy: function(options) {
 
-            /*    var menu_selector = "." + $(this).attr('class').split(' ')[0];
+                return this.each(function() {
+                    $(window).unbind('.menuLighting');
+                })
+
+            },
+
+            init: function(options) {
+
+                var menu_selector = "." + $(this).attr('class').split(' ')[0];
 
                 // Plugin default settings
                 var settings = $.extend({
@@ -69,7 +66,7 @@ $(document).ready(function() {
                 /* Scroll function to the corresponding block with a slice
                  on the menu item when scrolling the page */
 
-              /*  $(document).on("scroll", onScroll);
+                $(document).on("scroll", onScroll);
                 $(menu_selector + " a[href*='#']").click(function(e) {
                     e.preventDefault();
                     $(document).off("scroll");
@@ -89,58 +86,59 @@ $(document).ready(function() {
                     });
                 });
 
+                return $(this).each(function() {
+                    $(window).bind('scroll.menuLighting', methods.show.bind(this));
 
-                 */
-            
-    },
+                });
+            },
 
-    show: function(options) {
+            show: function(options) {
 
-        var $menu = $(this);
+                var $menu = $(this);
 
-        // show default settings
+                // show default settings
 
-        var showSettings = $.extend({
-            background_color: "#00A99D",
-            opacity: "0.9",
-            width: "80%",
-            margin_left: "auto",
-            margin_right: "auto",
-            border_radius: 0
-        }, options);
+                var showSettings = $.extend({
+                    background_color: "#00A99D",
+                    opacity: "0.9",
+                    width: "80%",
+                    margin_left: "auto",
+                    margin_right: "auto",
+                    border_radius: 0
+                }, options);
 
-        window.onscroll =
-            function() {
-                var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-                if (scrolled > 0) {
-                    $($menu).css({
-                        "background-color": showSettings.background_color,
-                        "opacity": showSettings.opacity,
-                        "width": showSettings.width,
-                        "border-radius": showSettings.border_radius,
-                        "margin-right": showSettings.margin_right,
-                        "margin-left": showSettings.margin_left
-                    });
+                window.onscroll =
+                    function() {
+                        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+                        if (scrolled > 0) {
+                            $menu.css({
+                                "background-color": showSettings.background_color,
+                                "opacity": showSettings.opacity,
+                                "width": showSettings.width,
+                                "border-radius": showSettings.border_radius,
+                                "margin-right": showSettings.margin_right,
+                                "margin-left": showSettings.margin_left
+                            });
 
-                } else {
-                    $($menu).css({ "background-color": "" });
-                }
-            };
-    }
+                        } else {
+                            $menu.css({ "background-color": "" });
+                        }
+                    };
+            }
 
-};
+        };
 
-$.fn.menuLighting = function(method) {
+        $.fn.menuLighting = function(method) {
 
-    // логика вызова метода
-    if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-    } else if (typeof method === 'object' || !method) {
-        return methods.init.apply(this, arguments);
-    } else {
-        $.error('Метод с именем ' + method + ' не существует для jQuery.menuLighting');
-    }
-};
+            // логика вызова метода
+            if (methods[method]) {
+                return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+            } else if (typeof method === 'object' || !method) {
+                return methods.init.apply(this, arguments);
+            } else {
+                $.error('Метод с именем ' + method + ' не существует для jQuery.menuLighting');
+            }
+        };
 
-})(jQuery);
+    })(jQuery);
 });
