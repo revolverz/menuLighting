@@ -11,13 +11,11 @@
 
 $(document).ready(function() {
 
-
     (function($) {
 
         var methods = {
 
             reset: function(event) {
-
 
             },
 
@@ -26,104 +24,123 @@ $(document).ready(function() {
                 return this.each(function() {
                     $(window).unbind('.menuLighting');
                 })
-
             },
 
             init: function(options) {
 
-                var menu_selector = "." + $(this).attr('class').split(' ')[0];
+                return this.each(function() {
 
-                // Plugin default settings
-                var settings = $.extend({
-                    color_default: "",
-                    color_active: "",
-                    time: 500
-                }, options);
+                    var menu_selector = "." + $(this).attr('class').split(' ')[0];
 
-                //Function of highlighting menu items when scrolling a page   
-                function onScroll() {
-                    var scroll_top = $(document).scrollTop();
+                    // Plugin default settings
+                    var settings = $.extend({
+                        color_default: "",
+                        color_active: "",
+                        time: 500,
+                        background_color: "red",
+                        opacity: "0.9",
+                        width: "80%",
+                        margin_left: "auto",
+                        margin_right: "auto",
+                        onLight: true,
+                        onDudu: false,
+                        onScroll: true,
+                        trula: true,
+                        border_radius: 0
+                    }, options);
 
-                    $(menu_selector + " a").each(function() {
+                    //Function of highlighting menu items when scrolling a page  
+                    function onScroll() {
 
-                        var hash = $(this).attr("href");
-                        var target = $(hash);
-                        if (target.position().top <= scroll_top && target.position().top + target.outerHeight() > scroll_top) {
+                        //   $(document).on("scroll", function onScroll() {
+
+                        var scroll_top = $(document).scrollTop();
+
+                        $(menu_selector + " a").each(function() {
+
+                            var hash = $(this).attr("href");
+                            var target = $(hash);
+                            if (target.position().top <= scroll_top && target.position().top + target.outerHeight() > scroll_top) {
+                                $(menu_selector + " a").css({
+                                    color: settings.color_default
+                                });
+                                $(this).css({
+                                    color: settings.color_active
+                                });
+                            } else {
+                                $(this).css({
+                                    color: settings.color_default
+                                });
+                            }
+                        });
+                    };
+
+                    /* Scroll function to the corresponding block with a slice
+                     on the menu item when scrolling the page */
+                    function trula() {
+                        //   $(menu_selector + " a[href*='#']").click(function(e) {
+                        $("a[href*='#']", this).click(function(e) {
+                            e.preventDefault();
+                            $(document).off("scroll");
                             $(menu_selector + " a").css({
                                 color: settings.color_default
                             });
                             $(this).css({
                                 color: settings.color_active
                             });
-                        } else {
-                            $(this).css({
-                                color: settings.color_default
+                            var hash = $(this).attr("href");
+                            var target = $(hash);
+                            $("html, body").animate({
+                                scrollTop: target.offset().top
+                            }, settings.time, function() {
+                                window.location.hash = hash;
+                                $(document).on("scroll", onScroll);
                             });
-                        }
-                    });
-                }
+                        });
+                    };
 
-                /* Scroll function to the corresponding block with a slice
-                 on the menu item when scrolling the page */
 
-                $(document).on("scroll", onScroll);
-                $(menu_selector + " a[href*='#']").click(function(e) {
-                    e.preventDefault();
-                    $(document).off("scroll");
-                    $(menu_selector + " a").css({
-                        color: settings.color_default
-                    });
-                    $(this).css({
-                        color: settings.color_active
-                    });
-                    var hash = $(this).attr("href");
-                    var target = $(hash);
-                    $("html, body").animate({
-                        scrollTop: target.offset().top
-                    }, settings.time, function() {
-                        window.location.hash = hash;
-                        $(document).on("scroll", onScroll);
-                    });
-                });
+                    var $menu = $(this);
 
-                return $(this).each(function() {
-                    $(window).bind('scroll.menuLighting', methods.show.bind(this));
-
-                });
-            },
-
-            show: function(options) {
-
-                var $menu = $(this);
-
-                // show default settings
-
-                var showSettings = $.extend({
-                    background_color: "#00A99D",
-                    opacity: "0.9",
-                    width: "80%",
-                    margin_left: "auto",
-                    margin_right: "auto",
-                    border_radius: 0
-                }, options);
-
-                window.onscroll =
-                    function() {
+                    //  window.onscroll =
+                    function onLight() {
                         var scrolled = window.pageYOffset || document.documentElement.scrollTop;
                         if (scrolled > 0) {
                             $menu.css({
-                                "background-color": showSettings.background_color,
-                                "opacity": showSettings.opacity,
-                                "width": showSettings.width,
-                                "border-radius": showSettings.border_radius,
-                                "margin-right": showSettings.margin_right,
-                                "margin-left": showSettings.margin_left
+                                "background-color": settings.background_color,
+                                "opacity": settings.opacity,
+                                "width": settings.width,
+                                "border-radius": settings.border_radius,
+                                "margin-right": settings.margin_right,
+                                "margin-left": settings.margin_left
                             });
 
                         } else {
                             $menu.css({ "background-color": "" });
                         }
                     };
+
+                    function onDudu() {
+                        alert('dudu');
+                    };
+
+                    function setHandlers(options, listHandlers) {
+                        listHandlers.forEach(function(item) {
+                            if (options[item.name]) {
+                                $(document).bind('scroll.menuLighting', item);
+                            } else {
+                                $(document).unbind('scroll.menuLighting', item);
+                            }
+
+                        });
+                    };
+                    setHandlers(settings, [onLight, onDudu, onScroll, trula]);
+                });
+            },
+
+
+            show: function(options) {
+
             }
 
         };
@@ -141,4 +158,13 @@ $(document).ready(function() {
         };
 
     })(jQuery);
+
+    $('#test').menuLighting({
+        color_active: "orange",
+        color_default: "",
+        time: 500
+    });
+
+    // $('#test').menuLighting('destroy');
+
 });
