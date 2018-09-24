@@ -16,6 +16,10 @@ This identifier or class must match the value of the href attribute of the menu 
 
 $('#test').menuLighting();
 
+// Destroy plugin 
+
+// $('#test').menuLighting('destroy');
+
 // Initialize plugin with user defined options.
 
 $('#test').menuLighting({
@@ -23,6 +27,17 @@ $('#test').menuLighting({
     	color_default: "", // indicate "inactive" color
         time: 500 // time of transition to the selected block after a click on the menu link
    });
+
+An additional option is to enable or disable a particular plug-in functionality (by adding true / false). By default, these are the functions onScroll, onClick, onLight_bg:
+
+$('#test').menuLighting({
+        color_active: "orange",
+        color_default: "",
+        time: 500,
+        onLight: true,
+        onScroll: true,
+        onLight_bg: true
+  });
 ```
 
 ### Setup options
@@ -30,10 +45,20 @@ $('#test').menuLighting({
 ```js
 // Default plugin options.
 
-var settings = $.extend({
-        color_default: "",
-        color_active: "",
-        time: 500
+     var settings = $.extend({
+                        color_default: "",
+                        color_active: "",
+                        time: 500,
+                        background_color: "red",
+                        opacity: "0.9",
+                        width: "80%",
+                        margin_left: "auto",
+                        margin_right: "auto",
+                        onLight: true,
+                        onScroll: true,
+                        trula: true,
+                        border_radius: 0
+                    }, options);
   }, options);
 ```
 
