@@ -16,9 +16,8 @@ $(document).ready(function() {
             var methods = {
 
                     init: function(options) {
-
+                      
                         return this.each(function() {
-
                             var data = this.data('menuLighting');
                             if (!data) {
                                 $(this).menuLighting();
@@ -36,10 +35,10 @@ $(document).ready(function() {
                                 width: "80%",
                                 margin_left: "auto",
                                 margin_right: "auto",
+                                border_radius: 0,
                                 onClick: true,
                                 onScroll: true,
-                                onLight_bg: true,
-                                border_radius: 0
+                                onLight_bg: true   
                             }, options);
 
                             function onScroll() {
@@ -84,7 +83,6 @@ $(document).ready(function() {
                             };
 
                             var $menu = $(this);
-
                             function onLight_bg() {
                                 var scrolled = window.pageYOffset || document.documentElement.scrollTop;
                                 if (scrolled > 0) {
