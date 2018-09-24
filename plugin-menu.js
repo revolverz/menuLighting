@@ -23,7 +23,9 @@ $(document).ready(function() {
                             if (!data) {
                                 $(this).menuLighting();
                             }
+                          
                             var menu_selector = "." + $(this).attr('class').split(' ')[0];
+
                             // Plugin default settings
                             var settings = $.extend({
                                 color_default: "",
@@ -131,4 +133,10 @@ $(document).ready(function() {
             }
         };
     })(jQuery);
+
+$('#test').menuLighting({
+    color_active: "orange",
+    color_default: "",
+    time: 500,
+});
 });
