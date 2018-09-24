@@ -133,10 +133,4 @@ $(document).ready(function() {
             }
         };
     })(jQuery);
-
-$('#test').menuLighting({
-    color_active: "orange",
-    color_default: "",
-    time: 500,
-});
 });
