@@ -3,7 +3,7 @@
   @name jquery.menuLighting.js
   @author Evgeny Ishmuratov (ev.ishmuratov@gmail.com)
   @version 1.0
-  @date 10/09/2018
+  @date 24/09/2018
   @category jQuery Plugin
   @copyright (c) 2018 [Evgeny Ishmuratov]
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
