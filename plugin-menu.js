@@ -18,11 +18,7 @@ $(document).ready(function() {
                     init: function(options) {
                       
                         return this.each(function() {
-                            var data = this.data('menuLighting');
-                            if (!data) {
-                                $(this).menuLighting();
-                            }
-                          
+                                         
                             var menu_selector = "." + $(this).attr('class').split(' ')[0];
 
                             // Plugin default settings
