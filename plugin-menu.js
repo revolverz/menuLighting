@@ -9,15 +9,15 @@
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
 */
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    (function($) {
+    (function ($) {
 
         var methods = {
 
-            init: function(options) {
+            init: function (options) {
 
-                return this.each(function() {
+                return this.each(function () {
 
                     var menu_selector = "." + $(this).attr('class').split(' ')[0];
 
@@ -39,7 +39,7 @@ $(document).ready(function() {
 
                     function onScroll() {
                         var scroll_top = $(document).scrollTop();
-                        $(menu_selector + " a").each(function() {
+                        $(menu_selector + " a").each(function () {
                             var hash = $(this).attr("href");
                             var target = $(hash);
                             if (target.position().top <= scroll_top && target.position().top + target.outerHeight() > scroll_top) {
@@ -59,8 +59,9 @@ $(document).ready(function() {
                     };
 
                     $(document).on("scroll", onScroll);
+
                     function onClick() {
-                        $("a[href*='#']", this).click(function(e) {
+                        $("a[href*='#']", this).click(function (e) {
                             e.preventDefault();
                             $(document).off("scroll");
                             $(menu_selector + " a").css({
@@ -73,9 +74,9 @@ $(document).ready(function() {
                             var target = $(hash);
                             $("html, body").animate({
                                 scrollTop: target.offset().top
-                            }, settings.time, function() {
+                            }, settings.time, function () {
                                 window.location.hash = hash;
-                               
+
                             });
                         });
                     };
@@ -95,12 +96,14 @@ $(document).ready(function() {
                             });
 
                         } else {
-                            $menu.css({ "background-color": "" });
+                            $menu.css({
+                                "background-color": ""
+                            });
                         }
                     };
 
                     function setHandlers(options, listHandlers) {
-                        listHandlers.forEach(function(item) {
+                        listHandlers.forEach(function (item) {
                             if (options[item.name]) {
                                 $(document).bind('scroll.menuLighting', item);
                             } else {
@@ -113,14 +116,14 @@ $(document).ready(function() {
                 });
             },
 
-            destroy: function(options) {
-                return this.each(function() {
+            destroy: function (options) {
+                return this.each(function () {
                     $(window).unbind('.menuLighting');
                 })
             }
         };
 
-        $.fn.menuLighting = function(method) {
+        $.fn.menuLighting = function (method) {
 
             if (methods[method]) {
                 return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
