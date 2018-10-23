@@ -32,7 +32,7 @@ An additional option is to enable or disable a particular plug-in functionality 
 
 $('#test').menuLighting({
 ...
-        onLight: true,
+        onLight : true,
         onScroll: true,
         onLight_bg: true
   });
