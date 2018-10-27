@@ -23,39 +23,30 @@ $('#test').menuLighting();
 // Initialize plugin with user defined options.
 
 $('#test').menuLighting({
-    	color_active: "green", // indicate "active" color
-    	color_default: "", // indicate "inactive" color
+    	colorActive  : 'green', // indicate "active" color
+    	colorDefault : '', // indicate "inactive" color
         time: 500 // time of transition to the selected block after a click on the menu link
    });
 
-An additional option is to enable or disable a particular plug-in functionality (by adding true / false). By default, these are the functions onScroll, onClick, onLight_bg:
-
-$('#test').menuLighting({
-...
-        onLight : true,
-        onScroll: true,
-        onLight_bg: true
-  });
-```
 
 ### Setup options
 
 ```js
 // Default plugin options.
-var settings = $.extend({
-    color_default: "",
-    color_active: "",
-    time: 500,
-    background_color: "red",
-    opacity: "0.9",
-    width: "80%",
-    margin_left: "auto",
-    margin_right: "auto",
-    border_radius: 0
-    onLight: true,
-    onScroll: true,
-    onLight_bg: true
-}, options);
+          var defaultOptions = {
+                colorDefault : '',
+                colorActive  : '',
+                time         : 500,
+                bgColor      : 'green',
+                opacity      : '0.9',
+                width        : '80%',
+                marginLeft   : 'auto',
+                marginRight  : 'auto',
+                borderRadius : 0,
+                isClick      : true,
+                isScroll     : true,
+                isLightBg    : true
+            }
      
 ```
 
@@ -78,11 +69,11 @@ HTML
 JS
 
 ```js
-
+( function ( $ ) {
    $('#test').menuLighting({
     	color_active: "orange",
     	color_default: "",
         time: 1000
     });
-
+});
 ```
