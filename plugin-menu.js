@@ -16,7 +16,7 @@
             var defaultOptions = {
                 colorDefault : '',
                 colorActive  : '',
-                time         : 500,
+                time         : '500',
                 bgColor      : 'green',
                 opacity      : '0.9',
                 width        : '80%',
@@ -26,15 +26,11 @@
                 isClick      : true,
                 isScroll     : true,
                 isLightBg    : true
-            }
+            }         
 
-            return this.each( function() {
-                var settings = $.extend( defaultOptions, options );
-                var $self    = $( this );
-                var $links   = $( 'a[href*="#"]', $self );
-
-                function onScroll() {
-                    $links.each( function() {
+            function initScroll( settings ) {
+                return function() {
+                    $links.each( function() { 
                         var hash      = $( this ).attr('href');
                         var $target   = $( hash) ;
                         var scrollTop = $( document ).scrollTop();
@@ -47,42 +43,45 @@
                                 'color' : settings.colorActive
                             });
                         }
-                    })
-                }
-
-                function clickInit() {
-                    $links.on( 'click', function(e) {
-                        e.preventDefault();
-                        var hash    = $( this ).attr('href');
-                        var $target = $( hash );
-
-                        $( 'html, body' ).animate({
-                            scrollTop: $target.offset().top
-                        }, settings.time, function() {
-                            window.location.hash = hash;
-                        });
                     });
                 }
+            }
+      
+            function clickInit( settings ) {
+                $links.on( 'click', function(e) {
+                    e.preventDefault();
+                    var hash    = $( this ).attr('href');
+                    var $target = $( hash );
+                    $( 'html, body' ).animate({
+                        scrollTop : $target.offset().top
+                    }, settings.time, function() {
+                            window.location.hash = hash;
+                    });
+                });
+            }
 
-                function onLightBg() {
-                    var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+            function onLightBg( settings ) {
+                var scrolled = window.pageYOffset || document.documentElement.scrollTop;
 
-                    if ( scrolled > 0 ) {
-                        $self.css({
-                            'background-color' : settings.bgColor,
-                            'opacity'          : settings.opacity,
-                            'width'            : settings.width,
-                            'border-radius'    : settings.borderRadius,
-                            'margin-right'     : settings.marginRight,
-                            'margin-left'      : settings.marginLeft
-                        });
-                    };
-                }
+                if ( scrolled > 0 ) {
+                    $self.css({
+                        'background-color' : settings.bgColor,
+                        'opacity'          : settings.opacity,
+                        'width'            : settings.width,
+                        'border-radius'    : settings.borderRadius,
+                        'margin-right'     : settings.marginRight,
+                        'margin-left'      : settings.marginLeft
+                    });
+                };
+            }
+            
+            var settings = $.extend( defaultOptions, options );
+            var $self    = $( this );
+            var $links   = $( 'a[href*="#"]', $self );
 
-                settings.isClick && clickInit();
-                settings.isLightBg && $( document ).bind( 'scroll.menuLighting', onLightBg );
-                settings.isScroll && $( document ).bind( 'scroll.menuLighting', onScroll );
-            });
+            settings.isClick && clickInit( settings );
+            settings.isLightBg && $( document ).bind( 'scroll.menuLighting', onLightBg( settings ) );
+            settings.isScroll && $( document ).bind( 'scroll.menuLighting', initScroll( settings ) );
         },
 
         destroy: function() {
