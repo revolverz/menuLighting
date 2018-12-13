@@ -69,11 +69,11 @@ HTML
 JS
 
 ```js
-( function ( $ ) {
-   $('#test').menuLighting({
-    	color_active: "orange",
-    	color_default: "",
-        time: 1000
+ $(function () {
+     $('#test').menuLighting({
+     colorActive: "orange",
+     colorDefault: "",
+     animateTime: 1000
     });
 });
 ```
