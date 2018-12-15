@@ -12,7 +12,7 @@
 
 ( function ( $ ) {
     var methods = {
-        init: function( options ) {
+        init : function( options ) {
             var defaultOptions = {
                 colorDefault : '',
                 colorActive  : '',
@@ -25,7 +25,7 @@
                 borderRadius : 0,
                 isClick      : true,
                 isScroll     : true,
-                isLightBg    : true
+                isLightBg    : true,
             }
 
             var settings = $.extend( defaultOptions, options );
@@ -33,10 +33,11 @@
             function onScroll( $links ) {
                 $links.each( function() {
                     var hash      = $( this ).attr('href');
-                    var $target   = $( hash) ;
+                    var $target   = $( hash );
                     var scrollTop = $( document ).scrollTop();
 
-                    if ( $target.position().top <= scrollTop && $target.position().top + $target.outerHeight() > scrollTop ) {
+                    if ( $target.position().top <= scrollTop 
+                        && $target.position().top + $target.outerHeight() > scrollTop ) {
                         $links.css({
                             'color' : settings.colorDefault
                         });
@@ -48,7 +49,7 @@
             }
 
             function clickInit( $links ) {
-                $links.on( 'click', function(e) {
+                $links.on( 'click', function( e ) {
                     e.preventDefault();
                     var hash    = $( this ).attr('href');
                     var $target = $( hash );
@@ -72,7 +73,7 @@
                         'width'            : settings.width,
                         'border-radius'    : settings.borderRadius,
                         'margin-right'     : settings.marginRight,
-                        'margin-left'      : settings.marginLeft
+                        'margin-left'      : settings.marginLeft,
                     });
                 };
             }
@@ -86,7 +87,7 @@
             });
         },
 
-        destroy: function() {
+        destroy : function() {
             return this.each( function() {
                 $( window ).unbind('.menuLighting');
             })
@@ -94,8 +95,8 @@
     };
 
     $.fn.menuLighting = function( method ) {
-        if ( methods[method] ) {
-            return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ) );
+        if ( methods[ method ] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ) );
         }
         else if ( typeof method === 'object' || !method ) {
             return methods.init.apply( this, arguments );
