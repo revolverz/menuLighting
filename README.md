@@ -22,10 +22,10 @@ $('#test').menuLighting();
 
 // Initialize plugin with user defined options.
 
-$('#test').menuLighting({
+$( '#test' ).menuLighting({
     	colorActive  : 'green', // indicate "active" color
     	colorDefault : '', // indicate "inactive" color
-        time: 500 // time of transition to the selected block after a click on the menu link
+        time         : 500, // time of transition to the selected block after a click on the menu link
    });
 
 
@@ -45,7 +45,7 @@ $('#test').menuLighting({
                 borderRadius : 0,
                 isClick      : true,
                 isScroll     : true,
-                isLightBg    : true
+                isLightBg    : true,
             }
      
 ```
@@ -57,7 +57,7 @@ HTML
 ```HTML
 
  <div class="main-menu">
-            <ul id = "test" class="main-menu__list j-main-menu__list">
+            <ul id = "menu" class="main-menu__list j-main-menu__list">
                 <li class="main-menu__item"><a class="main-menu__link" href="#main">Main</a></li>
                 <li class="main-menu__item"><a class="main-menu__link" href="#services">Services/a></li>
                 <li class="main-menu__item"><a class="main-menu__link" href="#equipment">Equipment</a></li>
@@ -69,11 +69,11 @@ HTML
 JS
 
 ```js
- $(function () {
-     $('#test').menuLighting({
-     colorActive: "orange",
-     colorDefault: "",
-     animateTime: 1000
+ $( function() {
+     $( '#menu' ).menuLighting({
+     colorActive  : "orange",
+     colorDefault : "",
+     animateTime: 1000,
     });
 });
 ```
