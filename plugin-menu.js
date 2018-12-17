@@ -10,6 +10,7 @@
 */
 
 
+
 ( function ( $ ) {
     var methods = {
         init : function( options ) {
@@ -18,7 +19,7 @@
                 colorActive  : '',
                 animateTime  : 500,
                 bgColor      : 'green',
-                opacity      : '0.9',
+                opacity      : 0.9,
                 width        : '80%',
                 marginLeft   : 'auto',
                 marginRight  : 'auto',
@@ -30,7 +31,7 @@
 
             var settings = $.extend( defaultOptions, options );
 
-            function onScroll( $links ) {
+            function onScroll( settings, $links ) {
                 $links.each( function() {
                     var hash      = $( this ).attr('href');
                     var $target   = $( hash );
@@ -48,7 +49,7 @@
                 })
             }
 
-            function clickInit( $links ) {
+            function clickInit( settings, $links ) {
                 $links.on( 'click', function( e ) {
                     e.preventDefault();
                     var hash    = $( this ).attr('href');
@@ -62,7 +63,7 @@
                 });
             }
 
-            function onLightBg() {
+            function onLightBg( settings ) {
                 var $menu    = $( this );
                 var scrolled = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -79,18 +80,19 @@
             }
 
             return this.each( function() {
-                var $links = $( 'a[href*="#"]', $( this ) );
+                var $links = $( 'a[href^="#"]', this );
 
-                settings.isClick && clickInit.call( this, $links );
-                settings.isLightBg && $( document ).bind( 'scroll.menuLighting', onLightBg.bind( this ) );
-                settings.isScroll && $( document ).bind( 'scroll.menuLighting', onScroll.bind( this, $links ) );
+              /*  settings.isClick && clickInit.call( this, $links );
+                settings.isLightBg && $( document ).on( 'scroll.menuLighting', onLightBg.bind( this ) );
+                settings.isScroll && $( document ).on( 'scroll.menuLighting', onScroll.bind( this, $links ) );*/
+                settings.isClick && clickInit( settings, $links );
+                settings.isLightBg && $( document ).on( 'scroll.menuLighting', onLightBg( this ));
+                settings.isScroll && $( document ).on( 'scroll.menuLighting', onScroll( settings, $links ) );
             });
         },
 
         destroy : function() {
-            return this.each( function() {
-                $( window ).unbind('.menuLighting');
-            })
+                $( window ).off('.menuLighting');
         }
     };
 
