@@ -18,7 +18,7 @@
                 colorActive  : '',
                 animateTime  : 500,
                 bgColor      : 'green',
-                opacity      : '0.9',
+                opacity      : 0.9,
                 width        : '80%',
                 marginLeft   : 'auto',
                 marginRight  : 'auto',
@@ -79,18 +79,16 @@
             }
 
             return this.each( function() {
-                var $links = $( 'a[href*="#"]', $( this ) );
+                var $links = $( 'a[href^="#"]', this );
 
                 settings.isClick && clickInit.call( this, $links );
-                settings.isLightBg && $( document ).bind( 'scroll.menuLighting', onLightBg.bind( this ) );
-                settings.isScroll && $( document ).bind( 'scroll.menuLighting', onScroll.bind( this, $links ) );
+                settings.isLightBg && $( document ).on( 'scroll.menuLighting', onLightBg.bind( this ) );
+                settings.isScroll && $( document ).on( 'scroll.menuLighting', onScroll.bind( this, $links ) );
             });
         },
 
         destroy : function() {
-            return this.each( function() {
-                $( window ).unbind('.menuLighting');
-            })
+            $( window ).off('.menuLighting');
         }
     };
 
