@@ -9,7 +9,6 @@
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
 */
 
-
 ( function ( $ ) {
     var methods = {
         init : function( options ) {
@@ -81,6 +80,7 @@
             return this.each( function() {
                 var $links = $( 'a[href^="#"]', this );
 
+
                 settings.isClick && clickInit.call( this, $links );
                 settings.isLightBg && $( document ).on( 'scroll.menuLighting', onLightBg.bind( this ) );
                 settings.isScroll && $( document ).on( 'scroll.menuLighting', onScroll.bind( this, $links ) );
@@ -89,6 +89,7 @@
 
         destroy : function() {
             $( window ).off('.menuLighting');
+
         }
     };
 
